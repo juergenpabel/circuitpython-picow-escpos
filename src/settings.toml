@@ -9,4 +9,4 @@ MQTT_BROKER_USER = "YOUR-MQTT-USERNAME"
 MQTT_BROKER_PASS = "YOUR-MQTT-PASSWORD"
 MQTT_BROKER_TOPIC = "printer/tm-t20ii/escpos"
 
-#CODE_DEBUG = 1 # activate to wait on startup for USB-serial connection
+# DEBUG = 1 # activate to wait on startup for USB-serial connection

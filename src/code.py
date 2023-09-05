@@ -13,12 +13,13 @@ g_printer = None
 
 def on_escpos(client, topic, message):
     g_printer.write(1, b'\x1b\x40')
+    g_printer.write(1, b'\x1b\x64\x04')
     g_printer.write(1, bytearray(message))
     g_printer.write(1, b'\x1b\x64\x08')
     g_printer.write(1, b'\x1b\x6d')
 
     
-if os.getenv('CODE_DEBUG') is not None:
+if os.getenv('DEBUG') is not None and bool(os.getenv('DEBUG')) is True:
     while supervisor.runtime.serial_connected is False:
         time.sleep(1)
 print(f"Connecting to SSID '{os.getenv('WIFI_SSID')}'...")
@@ -49,6 +50,6 @@ mqtt_client.subscribe(os.getenv('MQTT_BROKER_TOPIC', 'printer/+/escpos'))
 print(f"Connected to MQTT broker, running loop() now")
 while mqtt_client.is_connected() is True:
     mqtt_client.loop()
-print(f"Disconnected from MQTT broker '{os.getenv('MQTT_BROKER_IPV4', '192.168.1.1')}' - restaring...")
+print(f"Disconnected from MQTT broker '{os.getenv('MQTT_BROKER_IPV4', '192.168.1.1')}' - restarting...")
 supervisor.reload()
 

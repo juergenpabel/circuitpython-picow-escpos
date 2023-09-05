@@ -33,7 +33,7 @@ This circuitpython application relies on only the [adafruit_minimqtt](https://gi
 - MQTT_BROKER_USER: MQTT username (or unset for anonymous)
 - MQTT_BROKER_PASS: MQTT password (or unset for anonymous)
 - MQTT_BROKER_TOPIC: MQTT topic to listen on for ESCPOS-formatted print data
-- DEBUG: If set (to any value that yields *True*) the script will wait on startup for a serial connection to the board (this is for debugging purposes so that nothing interesting happens before the serial connection has been established)
+- DEBUG: If set (to any value that yields *True* when passed to *bool()*) the application will wait on startup for a serial connection to the board (this is for debugging purposes so that nothing interesting happens before the serial connection has been established)
 
 # Hardware
 
