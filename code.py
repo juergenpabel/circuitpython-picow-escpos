@@ -35,8 +35,8 @@ while g_printer is None:
 print(f"{g_printer.idVendor:04x}:{g_printer.idProduct:04x} {g_printer.manufacturer} / {g_printer.product} (#{g_printer.serial_number})")
 g_printer.set_configuration()
 
-print(f"Connecting to MQTT broker '{os.getenv('MQTT_BROKER_IPV4', '192.168.4.1')}'...")
-mqtt_client = MQTT(broker=os.getenv('MQTT_BROKER_IPV4', '192.168.4.1'),
+print(f"Connecting to MQTT broker '{os.getenv('MQTT_BROKER_IPV4', '192.168.1.1')}'...")
+mqtt_client = MQTT(broker=os.getenv('MQTT_BROKER_IPV4', '192.168.1.1'),
                    username=os.getenv('MQTT_BROKER_USER', None),
                    password=os.getenv('MQTT_BROKER_PASS', None),
                    socket_pool=socketpool.SocketPool(wifi.radio))
@@ -49,6 +49,6 @@ mqtt_client.subscribe(os.getenv('MQTT_BROKER_TOPIC', 'printer/+/escpos'))
 print(f"Connected to MQTT broker, running loop() now")
 while mqtt_client.is_connected() is True:
     mqtt_client.loop()
-print(f"Disconnected from MQTT broker '{os.getenv('MQTT_BROKER_IPV4', '192.168.4.1')}' - restaring...")
+print(f"Disconnected from MQTT broker '{os.getenv('MQTT_BROKER_IPV4', '192.168.1.1')}' - restaring...")
 supervisor.reload()
 
