@@ -11,10 +11,12 @@ from adafruit_minimqtt.adafruit_minimqtt import MQTT
 
 g_printer = None
 
-def on_escpos(client, topic, message):
+def on_escpos(client, topic, payload):
+    print(f"Processing MQTT message on topic '{topic}' with a payload of {len(payload)} bytes")
     g_printer.write(1, b'\x1b\x40')
     g_printer.write(1, b'\x1b\x64\x04')
-    g_printer.write(1, bytearray(message))
+    for offset in range(0, len(payload), 64):
+        g_printer.write(1, payload[offset:offset+64])
     g_printer.write(1, b'\x1b\x64\x08')
     g_printer.write(1, b'\x1b\x6d')
 
@@ -40,7 +42,8 @@ print(f"Connecting to MQTT broker '{os.getenv('MQTT_BROKER_IPV4', '192.168.1.1')
 mqtt_client = MQTT(broker=os.getenv('MQTT_BROKER_IPV4', '192.168.1.1'),
                    username=os.getenv('MQTT_BROKER_USER', None),
                    password=os.getenv('MQTT_BROKER_PASS', None),
-                   socket_pool=socketpool.SocketPool(wifi.radio))
+                   socket_pool=socketpool.SocketPool(wifi.radio),
+                   use_binary_mode=True)
 while mqtt_client.is_connected() is False:
     mqtt_client.connect()
     time.sleep(1)
