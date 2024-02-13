@@ -1,3 +1,8 @@
+## Announcement ##
+Because this application is not in any way confined to the Pi Pico W (but rather only to a circuitpython device with usb-host support), I re-published this software in a [new repository](https://github.com/juergenpabel/circuitpython-escpos-server) and will continue its development there. This repository is now a public archive.
+
+---
+
 # Abstract
 
 This CircuitPython application runs on a Rasperry Pico W that connects via USB to a thermal printer; the application waits via MQTT for ESCPOS-formatted printjobs and sends them via USB to the thermal printer (without any parsing; but with an additional paper-cut command at the end).
